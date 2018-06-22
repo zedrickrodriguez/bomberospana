@@ -95,6 +95,32 @@ class ReciboController extends Controller
           ->first();
       return view("bomberos.recibo.show",["recibo"=>$recibo]);
   }
+  public function edit($id)
+  {
+    $recibo=Recibo::findOrFail($id);
+    $rubro = DB::table('rubro')->where('estado','=','ACTIVO')->get();
+          
+    return view("bomberos.recibo.edit",["recibo"=>$recibo, "rubro"=>$rubro]);
+  }
+  public function update(ReciboFormRequest $request,$id)
+  {
+      $recibo=Recibo::findOrFail($id);
+      $recibo->idrecibo=$request->get('idrecibo');
+      $recibo->idrubro=$request->get('idrubro');
+      $recibo->fecha_emision=$request->get('fecha_emision');
+
+      $mytime = Carbon::now('America/Guatemala');
+      $recibo->fecha=$mytime->toDateTimeString();
+      
+      $recibo->recibidode=$request->get('recibidode');
+      $recibo->nit=$request->get('nit');
+      $recibo->direccion=$request->get('direccion');
+      $recibo->cantidad=$request->get('cantidad');
+      $recibo->estado='VIGENTE';
+      $recibo->ingresadopor=$request->get('ingresadopor');
+      $recibo->update();
+      return Redirect::to('bomberos/recibo');
+  }
 
 
   public function destroy(Request $request,$id)

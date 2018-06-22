@@ -112,7 +112,7 @@
               </a>
               
             </li>
-
+            @if (auth()->user()->role==='admin')
             <li id="liAcceso" class="treeview">
               <a href="#">
                 <i class="fa fa-user-plus"></i> <span>Acceso</span>
@@ -123,6 +123,7 @@
 
               </ul>
             </li>
+            @endif
 
 
 

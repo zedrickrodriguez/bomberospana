@@ -29,6 +29,11 @@
 					<td>{{ $rec->ingresadopor}}</td>
 					<td>{{ $rec->estado}}</td>
 					<td>
+						@if (auth()->user()->role==='admin')
+						<a href="{{URL::action('ReciboController@edit',$rec->idrecibo)}}"><button class="btn btn-warning">Editar</button></a>
+						@endif
+						
+
 						<a href="{{URL::action('ReciboController@show',$rec->idrecibo)}}"><button class="btn btn-primary">Detalles</button></a>
 
                          <a href="" data-target="#modal-delete-{{$rec->idrecibo}}" data-toggle="modal"><button class="btn btn-danger">Anular</button></a>

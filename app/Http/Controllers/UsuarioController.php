@@ -17,7 +17,7 @@ class UsuarioController extends Controller
 {
   public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','roles']);
     }
 
     public function index(Request $request)
@@ -43,6 +43,7 @@ class UsuarioController extends Controller
         $usuario->name=$request->get('name');
         $usuario->email=$request->get('email');
         $usuario->password=bcrypt($request->get('password'));
+        $usuario->role="mod";
         $usuario->estado="ACTIVO";
         $usuario->save();
         return Redirect::to('seguridad/usuario');
